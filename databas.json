@@ -1,46 +1,55 @@
 {
     "status" : "success",
     "products" : {
-
         "apple":{
             "id": 1,
-            "price": 2
+            "price": 2,
+            "img": "./img/apple.jpeg"
         },
         "orange":{
             "id": 2,
-            "price": 3
+            "price": 3,
+            "img": "./img/orange.jpeg"
         },
         "grape":{
             "id": 3,
-            "price": 6
+            "price": 6,
+            "img": "./img/grape.jpeg"
         },
         "pear":{
             "id": 4,
-            "price": 2
+            "price": 2,
+            "img": "./img/pear.jpeg"
         },
         "tomato":{
             "id": 5,
-            "price": 1
+            "price": 1,
+            "img": "./img/tomato.jpg"
         },
         "cucumber":{
             "id": 6,
-            "price": 8
+            "price": 8,
+            "img": "./img/cucumber.jpg"
         },
         "kiwi":{
             "id": 7,
-            "price": 7
+            "price": 7,
+            "img": "./img/kiwi.jpeg"
         },
         "lemon":{
             "id": 8,
-            "price": 10
+            "price": 10,
+            "img": "./img/lemon.jpeg"
         },
         "watermelon":{
             "id": 9,
-            "price": 20
+            "price": 20,
+            "img": "./img/watermelon.jpg"
         },
         "strawberry":{
             "id":10,
-            "price": 12
+            "price": 12,
+            "img": "./img/strawberry.jpeg"
         }
     }
 
