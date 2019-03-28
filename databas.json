@@ -1,0 +1,47 @@
+{
+    "status" : "success",
+    "products" : {
+
+        "apple":{
+            "id": 1,
+            "price": 2
+        },
+        "orange":{
+            "id": 2,
+            "price": 3
+        },
+        "grape":{
+            "id": 3,
+            "price": 6
+        },
+        "pear":{
+            "id": 4,
+            "price": 2
+        },
+        "tomato":{
+            "id": 5,
+            "price": 1
+        },
+        "cucumber":{
+            "id": 6,
+            "price": 8
+        },
+        "kiwi":{
+            "id": 7,
+            "price": 7
+        },
+        "lemon":{
+            "id": 8,
+            "price": 10
+        },
+        "watermelon":{
+            "id": 9,
+            "price": 20
+        },
+        "strawberry":{
+            "id":10,
+            "price": 12
+        }
+    }
+
+}
