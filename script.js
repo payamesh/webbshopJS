@@ -11,11 +11,11 @@ $(document).ready(function () {
                 <div class="card">
                 <img class="card-img-top" <img src="${value.img}" id="${key}" alt="${key} image">
                 <div class="card-body">
-                    <h4 class="card-title">${key}</h4>
-                    <p class="card-text">${value.price} kr</p>
-                    <div id="${value.id}" class="fruitBtn btn btn-primary">Lägg till i varukorgen</div>
-                    </div>
-                    </div>`
+                <h4 class="card-title">${key}</h4>
+                <p class="card-text">${value.price} kr</p>
+                <div id="${value.id}" class="fruitBtn btn btn-primary">Lägg till i varukorgen</div>
+                </div>
+                </div>`
 
                 )
             });
@@ -23,51 +23,71 @@ $(document).ready(function () {
 
 
     );
+
+
+
     setTimeout(function () {
-        // let buttons = document.getElementsByClassName("fruitBtn");
-        let list = "";
-        let price = 0;
-        let items = 0;
-        $.getJSON("./databas.json", function (data) {
-            let cart = [];
-            console.log(data.products.apple.id);
-            $.each(data.products, function (key, value) {
-                $(`#${value.id}`).on("click", function () {
+            if (localStorage.getItem("cart") === null) {
+                localStorage.setItem("cart", []);
+            }
+            // let buttons = document.getElementsByClassName("fruitBtn");
+            let list = "";
+            console.log(list);
 
-                    if (this.id == value.id) {
-                        cart.push(key, value);
-                        localStorage.setItem("cart", JSON.stringify(cart));
-                        console.log(JSON.parse(localStorage.getItem("cart")));
-                        list += "<li class = 'list-group-item' >" + key + "</li>";
-                        items = cart.length / 2;
-                        $("#items").html(items);
-                        price += value.price;
-                        $("#price").html(price);
+            let price = 0;
+            let items = 0;
+            $.getJSON("./databas.json", function (data) {
+                let cart = [];
+
+                // console.log(data.products.apple.id);
+                $.each(data.products, function (key, value) {
+                    $(`#${value.id}`).on("click", function () {
+
+                        if (this.id == value.id) {
+                            if (!localStorage.getItem("cart").includes(key)) {
+                                console.log(key)
+                                value.amount++;
+                                cart.push(key, value);
+                                list += "<li class = 'list-fruits list-group-item' >" + key + "</li>";
+                                localStorage.setItem("cart", JSON.stringify(cart));
+                                console.log(localStorage.getItem("cart"));
+                                items = cart.length / 2;
+                                $("#items").html(items);
+                                price += value.price;
+                                $("#price").html(price);
+                            } else {
+                                key.amount++;
+                                console.log(key.amount);
+                            }
+                        }
+
+                    })
 
 
-                    }
+
                 })
+            });
 
-
-
-            })
-        });
-        let cartIsClicked = false;
-        $("#shoppingCartImg").on("click", function () {
-            if (cartIsClicked === false) {
-                document.getElementById("aside").style = `
+            //onlick for the shoping cart, sets all of the values.
+            let cartIsClicked = false;
+            $("#shoppingCartImg").on("click", function () {
+                if (cartIsClicked === false) {
+                    document.getElementById("aside").style = `
             transition: 1500ms;
             width: 85vw;
             height: 85vh;
-            position: fixed;
+            position: absolute;
             top: 7.5vh;
             left: 7.5vw;
             `;
-                cartIsClicked = true;
-                $("#cart").append(list);
-            } else {
+                    cartIsClicked = true;
 
-                document.getElementById("aside").style = `
+                    $("#cart").append(list);
+
+
+                } else {
+
+                    document.getElementById("aside").style = `
             transition: 1500ms;
             width: 20 vw;
             height: 45 vh;
@@ -75,13 +95,20 @@ $(document).ready(function () {
             top: 10 vh;
             left: 75 vw;
             `;
-                cartIsClicked = false;
-                $("#cart").html(`<li class="list-group-item">Items <span id="items">${items}</span></li>
-                    <li class="list-group-item">Price <span id="price">${price}</span></li>`);
-            }
-        });
+                    cartIsClicked = false;
 
-    }, 15)
+                    setTimeout(function () {
+                        let listOfFruits = document.getElementsByClassName("list-fruits");
+                        for (let i = 0; i < listOfFruits.length; i++) {
+                            listOfFruits[i].style.display = "none";
+                        }
+                    }, 1500);
+
+                }
+            });
+
+        },
+        15)
 
 
 
