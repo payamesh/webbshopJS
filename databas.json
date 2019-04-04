@@ -1,65 +1,78 @@
 {
     "status": "success",
     "products": {
-        "apple": {
-            "id": 1,
+        "1": {
+
+
             "price": 2,
             "img": "./img/apple.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "apple"
         },
-        "orange": {
-            "id": 2,
+        "2": {
+
+
             "price": 3,
             "img": "./img/orange.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "orange"
         },
-        "grape": {
-            "id": 3,
+        "3": {
+
             "price": 6,
             "img": "./img/grape.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "grape"
         },
-        "pear": {
-            "id": 4,
+        "4": {
+
             "price": 2,
             "img": "./img/pear.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "pear"
         },
-        "tomato": {
-            "id": 5,
+        "5": {
+
             "price": 2,
             "img": "./img/tomato.jpg",
-            "amount": 0
+            "amount": 0,
+            "name": "tomato"
         },
-        "cucumber": {
-            "id": 6,
+        "6": {
+
             "price": 8,
             "img": "./img/cucumber.jpg",
-            "amount": 0
+            "amount": 0,
+            "name": "cucumber"
         },
-        "kiwi": {
-            "id": 7,
+        "7": {
+
             "price": 7,
             "img": "./img/kiwi.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "kiwi"
         },
-        "lemon": {
-            "id": 8,
+        "8": {
+
             "price": 10,
             "img": "./img/lemon.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "lemon"
         },
-        "watermelon": {
-            "id": 9,
+        "9": {
+
+
             "price": 20,
             "img": "./img/watermelon.jpg",
-            "amount": 0
+            "amount": 0,
+            "name": "watermelon"
         },
-        "strawberry": {
-            "id": 10,
+        "10": {
+
             "price": 12,
             "img": "./img/strawberry.jpeg",
-            "amount": 0
+            "amount": 0,
+            "name": "strawberry"
         }
     }
 
