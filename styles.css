@@ -83,3 +83,6 @@ a {
     width: 10vw;
     height: 10vw;
 }
+.submitDone{
+    display:none;
+}
