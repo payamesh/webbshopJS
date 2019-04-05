@@ -1,11 +1,11 @@
-$(document).ready(function() {
-  $.getJSON("./databas.json", function(data) {
-    $.each(data.products, function(key, value) {
+$(document).ready(function () {
+  $.getJSON("./databas.json", function (data) {
+    $.each(data.products, function (key, value) {
       //hämta alla produkter
       //lägg till produkterna med beskrivning,namn,pris
       $(".product-holder").append(`                   
             <div class="card">
-            <img class="card-img-top" <img src="${
+            <img class="card-img-top img-shop" <img class="img-shop" src="${
               value.img
             }"  alt="${key} image">
                 <div class="card-body">
@@ -31,17 +31,17 @@ $(document).ready(function() {
       li[i].remove();
     }
     //uppdates the "fysical" cart
-    $.each(cartObject, function(key, value) {
+    $.each(cartObject, function (key, value) {
       $("#cart").append("<li>" + value.name);
     });
     //styles the fysical cart.
-    $.each(cartObject, function(key, value) {
+    $.each(cartObject, function (key, value) {
       $("li").attr("class", "list-group-item");
     });
 
     if (cartIsUpToDate === false) {
       //Counts all of the items ant the total price.
-      $.each(cartObject, function(key, value) {
+      $.each(cartObject, function (key, value) {
         items += value.amount;
         price += value.price;
       });
@@ -53,11 +53,11 @@ $(document).ready(function() {
   }
 
   //set time out initated becose all variables need to be loaded before the script starts
-  setTimeout(function() {
+  setTimeout(function () {
     //Gets the json object
-    $.getJSON("./databas.json", function(data) {
-      $.each(data.products, function(key, value) {
-        $(`#${key}`).on("click", function() {
+    $.getJSON("./databas.json", function (data) {
+      $.each(data.products, function (key, value) {
+        $(`#${key}`).on("click", function () {
           //cartObject === null handles the situation where the cart has not yet been declared.
           if (cartObject === null) {
             cartObject = {};
@@ -94,7 +94,7 @@ $(document).ready(function() {
     });
     //onlick for the shoping cart, sets all of the values.
     let cartIsClicked = false;
-    $("#shoppingCartImg").on("click", function() {
+    $("#shoppingCartImg").on("click", function () {
       if (cartIsClicked === false) {
         document.getElementById("aside").style = `
             transition: 1500ms;
@@ -117,7 +117,7 @@ $(document).ready(function() {
             left: 75 vw;
             `;
         cartIsClicked = false;
-        setTimeout(function() {
+        setTimeout(function () {
           let listOfFruits = document.getElementsByClassName("list-fruits");
           for (let i = 0; i < listOfFruits.length; i++) {
             listOfFruits[i].style.display = "none";
