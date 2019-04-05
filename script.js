@@ -134,9 +134,11 @@ $(document).ready(function() {
           let that = this;
           $.each(cartObject, function(cartKey, cartValue) {
             if (that.id == "minus" + cartKey) {
-              cartValue.amount--;
-              document.getElementById("times" + cartKey).innerHTML =
-                " times: " + cartObject[cartKey].amount;
+              if (cartValue.amount > 0) {
+                cartValue.amount--;
+                document.getElementById("times" + cartKey).innerHTML =
+                  " times: " + cartObject[cartKey].amount;
+              }
             }
 
             localStorage.setItem("cartObject", JSON.stringify(cartObject));
