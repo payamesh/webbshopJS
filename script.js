@@ -1,6 +1,6 @@
-$(document).ready(function() {
-  $.getJSON("./databas.json", function(data) {
-    $.each(data.products, function(key, value) {
+$(document).ready(function () {
+  $.getJSON("./databas.json", function (data) {
+    $.each(data.products, function (key, value) {
       //hämta alla produkter
       //lägg till produkterna med beskrivning,namn,pris
       $(".product-holder").append(`                   
@@ -34,22 +34,22 @@ $(document).ready(function() {
     }
     //uppdates the "fysical" cart
 
-    $.each(cartObject, function(key, value) {
+    $.each(cartObject, function (key, value) {
       $("#cart").append(
         "<li> <div>" +
-          value.name +
-          `<span id='times${key}'> times: ${value.amount} </span>` +
-          `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
+        value.name +
+        `<span id='times${key}'> times: ${value.amount} </span>` +
+        `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
       );
     });
     //styles the fysical cart.
-    $.each(cartObject, function(key, value) {
+    $.each(cartObject, function (key, value) {
       $("li").attr("class", "list-group-item");
     });
 
     if (cartIsUpToDate === false) {
       //Counts all of the items ant the total price.
-      $.each(cartObject, function(key, value) {
+      $.each(cartObject, function (key, value) {
         items += value.amount;
         price += value.price;
       });
@@ -67,11 +67,11 @@ $(document).ready(function() {
   }
 
   //set time out initated becose all variables need to be loaded before the script starts
-  setTimeout(function() {
+  setTimeout(function () {
     //Gets the json object
-    $.getJSON("./databas.json", function(data) {
-      $.each(data.products, function(key, value) {
-        $(`#${key}`).on("click", function() {
+    $.getJSON("./databas.json", function (data) {
+      $.each(data.products, function (key, value) {
+        $(`#${key}`).on("click", function () {
           //cartObject === null handles the situation where the cart has not yet been declared.
           if (cartObject === null) {
             cartObject = {};
@@ -107,14 +107,14 @@ $(document).ready(function() {
       updateCart();
     });
     //onlick for the shoping cart, sets all of the values.
-    $("#shoppingCartImg").on("click", function() {
+    $("#shoppingCartImg").on("click", function () {
       //Here the onlick for plus and minus is created.
       let plusBtns = document.getElementsByClassName("plus");
 
-      $.each(plusBtns, function(key, value) {
-        $(value).on("click", function() {
+      $.each(plusBtns, function (key, value) {
+        $(value).on("click", function () {
           let that = this;
-          $.each(cartObject, function(cartKey, cartValue) {
+          $.each(cartObject, function (cartKey, cartValue) {
             if (that.id == "plus" + cartKey) {
               cartValue.amount++;
               document.getElementById("times" + cartKey).innerHTML =
@@ -126,13 +126,23 @@ $(document).ready(function() {
         });
       });
 
+      //empty cart
+      $('#clearCart').on('click', function () {
+        localStorage.clear();
+        cartObject = {};
+        for (let i = 2; i < visableCart.length; i++) {
+          visableCart[i].style.display = "none";
+        }
+      })
+
+
       //Minus knappen
 
       let minusBtns = document.getElementsByClassName("minus");
-      $.each(minusBtns, function(key, value) {
-        $(value).on("click", function() {
+      $.each(minusBtns, function (key, value) {
+        $(value).on("click", function () {
           let that = this;
-          $.each(cartObject, function(cartKey, cartValue) {
+          $.each(cartObject, function (cartKey, cartValue) {
             if (that.id == "minus" + cartKey) {
               cartValue.amount--;
               document.getElementById("times" + cartKey).innerHTML =
@@ -156,7 +166,7 @@ $(document).ready(function() {
             `;
         //makes the cart visable
         if (cartIsClicked === true) {
-          setTimeout(function() {
+          setTimeout(function () {
             for (let i = 2; i < visableCart.length; i++) {
               visableCart[i].style.display = "block";
             }
@@ -174,7 +184,7 @@ $(document).ready(function() {
             `;
         // visableCart.style = "transition: 1500ms;";
 
-        setTimeout(function() {
+        setTimeout(function () {
           for (let i = 2; i < visableCart.length; i++) {
             visableCart[i].style.display = "none";
           }
