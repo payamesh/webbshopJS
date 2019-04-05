@@ -45,6 +45,30 @@ h3 {
     height: 250px;
 }
 
+.plus {
+    font-weight: bold;
+    margin: 0 1vw;
+    text-align: center;
+    display: block;
+    background-color: green;
+    width: 2vw;
+    float: right;
+    color: white;
+    border-radius: 1vw;
+}
+
+.minus {
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    background-color: red;
+    width: 2vw;
+    float: right;
+    color: white;
+    border-radius: 1vw;
+}
+
+
 #toCart {
     position: absolute;
     bottom: 10px;
