@@ -9,15 +9,18 @@ $(document).ready(function () {
             var validation = Array.prototype.filter.call(forms, function (form) {
                 form.addEventListener('submit', function (event) {
                     if (form.checkValidity() === false) {
-                        event.preventDefault();
                         event.stopPropagation();
                     }
+                    event.preventDefault();
                     form.classList.add('was-validated');
+                    $(this).hide(2000)
+                    $('.submitDone').show(2000);
+
                 }, false);
-                $('.was-validated').hide(1000);
             });
         }, false);
-    })();
+    }
+    )();
     let cartObject = {};
     let totalprice= 0;
     cartObject = JSON.parse(localStorage.getItem('cartObject'));
