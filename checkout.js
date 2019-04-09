@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     (function () {
         'use strict';
@@ -10,29 +9,30 @@ $(document).ready(function () {
                 form.addEventListener('submit', function (event) {
                     if (form.checkValidity() === false) {
                         event.stopPropagation();
+                    } else {
+                        event.preventDefault();
+                        form.classList.add('was-validated');
+                        $(this).hide(2000)
+                        $('.submitDone').show(2000);
                     }
-                    event.preventDefault();
-                    form.classList.add('was-validated');
-                    $(this).hide(2000)
-                    $('.submitDone').show(2000);
+
 
                 }, false);
             });
         }, false);
-    }
-    )();
+    })();
     let cartObject = {};
-    let totalprice= 0;
+    let totalprice = 0;
     cartObject = JSON.parse(localStorage.getItem('cartObject'));
-    
+
     $.getJSON("./databas.json", function (data) {
-        
+
         $.each(cartObject, function (key, value) {
             // data.products[key].name
-            
-            
-            
-            let productTotalPrice= data.products[key].price * cartObject[key].amount
+
+
+
+            let productTotalPrice = data.products[key].price * cartObject[key].amount
 
             totalprice += productTotalPrice;
             $(".bought-products").append(`                   
@@ -46,11 +46,11 @@ $(document).ready(function () {
                 
                 </div>
                 </div>`);
-                
-            })
 
-            $('#totalPrice').append(`Total price: ${totalprice} kr`);
-            
-        });
+        })
+
+        $('#totalPrice').append(`Total price: ${totalprice} kr`);
+
+    });
 
 })

@@ -38,7 +38,7 @@ $(document).ready(function () {
       $("#cart").append(
         "<li> <div>" +
         value.name +
-        `<span id='times${key}'> times: ${value.amount} </span>` +
+        `<span id='times${key}'> gånger: ${value.amount} </span>` +
         `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
       );
     });
@@ -85,7 +85,9 @@ $(document).ready(function () {
                 img: value.img
               };
               price += value.price;
+
               items++;
+              console.log($("#items"));
               $("#items").html(items);
               $("#price").html(price + " kr");
             } else {
@@ -106,11 +108,28 @@ $(document).ready(function () {
 
       updateCart();
     });
+
+    //empty cart
+    $("#clearCart").on("click", function () {
+      let li = $("li");
+      console.log(li);
+      price = 0;
+      items = 0;
+      $("#items").html(items);
+      $("#price").html(price + " kr");
+
+      localStorage.clear();
+      cartObject = {};
+      for (let i = 2; i < li.length; i++) {
+        li[i].remove();
+      }
+    });
+
     //onlick for the shoping cart, sets all of the values.
     $("#shoppingCartImg").on("click", function () {
+
       //Here the onlick for plus and minus is created.
       let plusBtns = document.getElementsByClassName("plus");
-
       $.each(plusBtns, function (key, value) {
         $(value).on("click", function () {
           let that = this;
@@ -118,23 +137,13 @@ $(document).ready(function () {
             if (that.id == "plus" + cartKey) {
               cartValue.amount++;
               document.getElementById("times" + cartKey).innerHTML =
-                " times: " + cartObject[cartKey].amount;
+                " gånger: " + cartObject[cartKey].amount;
             }
 
             localStorage.setItem("cartObject", JSON.stringify(cartObject));
           });
         });
       });
-
-      //empty cart
-      $('#clearCart').on('click', function () {
-        localStorage.clear();
-        cartObject = {};
-        for (let i = 2; i < visableCart.length; i++) {
-          visableCart[i].style.display = "none";
-        }
-      })
-
 
       //Minus knappen
 
@@ -147,7 +156,7 @@ $(document).ready(function () {
               if (cartValue.amount > 0) {
                 cartValue.amount--;
                 document.getElementById("times" + cartKey).innerHTML =
-                  " times: " + cartObject[cartKey].amount;
+                  " gånger: " + cartObject[cartKey].amount;
               }
             }
 
@@ -169,9 +178,13 @@ $(document).ready(function () {
         //makes the cart visable
         if (cartIsClicked === true) {
           setTimeout(function () {
+            document.getElementById("cart-content").style.display = "block";
+
             for (let i = 2; i < visableCart.length; i++) {
               visableCart[i].style.display = "block";
             }
+
+
           }, 1500);
         }
         $("#cart").append(list);
@@ -190,9 +203,13 @@ $(document).ready(function () {
           for (let i = 2; i < visableCart.length; i++) {
             visableCart[i].style.display = "none";
           }
+          document.getElementById("cart-content").style = `
+          @media screen and(max - width: 1000 px) {
+          display:none;
+          `;
 
           cartIsClicked = false;
-        }, 1000);
+        }, 500);
       }
     });
   }, 15);
