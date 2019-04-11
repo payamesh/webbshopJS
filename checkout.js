@@ -15,7 +15,7 @@ $(document).ready(function () {
                         $(this).hide(2000)
                         $('.submitDone').show(2000);
                     }
-
+                    localStorage.clear();
 
                 }, false);
             });
@@ -29,23 +29,23 @@ $(document).ready(function () {
 
         $.each(cartObject, function (key, value) {
             // data.products[key].name
-
-
-
             let productTotalPrice = data.products[key].price * cartObject[key].amount
+            if (value.amount > 0) {
+                totalprice += productTotalPrice;
+                $(".bought-products").append(`                   
+                <div class="card-checkout">
+                <img class="card-img-top img-order" <img src="${data.products[key].img}"  alt="${data.products[key]} image">
+                    <div class="card-body">
+                    <h4 class="card-title">${data.products[key].name}</h4>
+                    <p class="card-text">${data.products[key].price}kr/st</p>
+                    <p class="card-text">Antal: ${cartObject[key].amount} </p>
+                    <p class="card-text">Totalt: ${productTotalPrice} kr </p>
+                    
+                    </div>
+                    </div>`);
+            }
 
-            totalprice += productTotalPrice;
-            $(".bought-products").append(`                   
-            <div class="card-checkout">
-            <img class="card-img-top img-order" <img src="${data.products[key].img}"  alt="${data.products[key]} image">
-                <div class="card-body">
-                <h4 class="card-title">${data.products[key].name}</h4>
-                <p class="card-text">${data.products[key].price}kr/st</p>
-                <p class="card-text">Antal: ${cartObject[key].amount} </p>
-                <p class="card-text">Totalt: ${productTotalPrice} kr </p>
-                
-                </div>
-                </div>`);
+
 
         })
 

@@ -22,8 +22,8 @@ $(document).ready(function () {
   let items = 0;
   let cartIsUpToDate = false;
   let cartIsClicked = false;
-
   let cartObject = {};
+
   //this should update the cartObject. Here I only hawto use the cart and the ui.
   function updateCart() {
     //visabel cart items is used to show and hide the items in the cart.
@@ -35,12 +35,15 @@ $(document).ready(function () {
     //uppdates the "fysical" cart
 
     $.each(cartObject, function (key, value) {
-      $("#cart").append(
-        "<li> <div>" +
-        value.name +
-        `<span id='times${key}'> gånger: ${value.amount} </span>` +
-        `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
-      );
+      if (value.amount > 0) {
+        $("#cart").append(
+          "<li> <div>" +
+          value.name +
+          `<span id='times${key}'> gånger: ${value.amount} </span>` +
+          `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
+        );
+      }
+
     });
     //styles the fysical cart.
     $.each(cartObject, function (key, value) {
@@ -51,7 +54,10 @@ $(document).ready(function () {
       //Counts all of the items ant the total price.
       $.each(cartObject, function (key, value) {
         items += value.amount;
-        price += value.price;
+        if (value.amount > 0) {
+          price += value.price * value.amount;
+        }
+
       });
       cartIsUpToDate = true;
       //sets the items inside of the cart
@@ -67,7 +73,7 @@ $(document).ready(function () {
   }
 
   //set time out initated becose all variables need to be loaded before the script starts
-  setTimeout(function () {
+  $(document).ready(function () {
     //Gets the json object
     $.getJSON("./databas.json", function (data) {
       $.each(data.products, function (key, value) {
@@ -92,7 +98,7 @@ $(document).ready(function () {
               $("#price").html(price + " kr");
             } else {
               cartObject[key].amount += 1;
-              cartObject[key].price += value.price;
+              // cartObject[key].price += value.price;
               console.log(items);
               items++;
               price += value.price;
@@ -135,7 +141,12 @@ $(document).ready(function () {
           let that = this;
           $.each(cartObject, function (cartKey, cartValue) {
             if (that.id == "plus" + cartKey) {
+              items++;
+              price += cartValue.price;
+              $("#items").html(items);
+              $("#price").html(price + " kr");
               cartValue.amount++;
+
               document.getElementById("times" + cartKey).innerHTML =
                 " gånger: " + cartObject[cartKey].amount;
             }
@@ -154,6 +165,14 @@ $(document).ready(function () {
           $.each(cartObject, function (cartKey, cartValue) {
             if (that.id == "minus" + cartKey) {
               if (cartValue.amount > 0) {
+                items--;
+                price -= cartValue.price;
+
+                console.log(cartValue.amount);
+
+                $("#items").html(items);
+                $("#price").html(price + " kr");
+
                 cartValue.amount--;
                 document.getElementById("times" + cartKey).innerHTML =
                   " gånger: " + cartObject[cartKey].amount;
@@ -212,5 +231,5 @@ $(document).ready(function () {
         }, 500);
       }
     });
-  }, 15);
+  });
 });
