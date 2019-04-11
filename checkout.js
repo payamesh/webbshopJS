@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     (function () {
         'use strict';
@@ -19,17 +18,17 @@ $(document).ready(function () {
         }, false);
     })();
     let cartObject = {};
-    let totalprice= 0;
+    let totalprice = 0;
     cartObject = JSON.parse(localStorage.getItem('cartObject'));
-    
+
     $.getJSON("./databas.json", function (data) {
-        
+
         $.each(cartObject, function (key, value) {
             // data.products[key].name
-            
-            
-            
-            let productTotalPrice= data.products[key].price * cartObject[key].amount
+
+
+
+            let productTotalPrice = data.products[key].price * cartObject[key].amount
 
             totalprice += productTotalPrice;
             $(".bought-products").append(`                   
@@ -43,11 +42,11 @@ $(document).ready(function () {
                 
                 </div>
                 </div>`);
-                
-            })
 
-            $('#totalPrice').append(`Total price: ${totalprice} kr`);
-            
-        });
+        })
+
+        $('#totalPrice').append(`Total price: ${totalprice} kr`);
+
+    });
 
 })
