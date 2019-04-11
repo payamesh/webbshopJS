@@ -35,13 +35,17 @@ $(document).ready(function () {
     //uppdates the "fysical" cart
 
     $.each(cartObject, function (key, value) {
-      $("#cart").append(
-        "<li> <div>" +
-        value.name +
-        `<span id='times${key}'> gånger: ${value.amount} </span>` +
-        `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
-      );
+      if (value.amount > 0) {
+        $("#cart").append(
+          "<li> <div>" +
+          value.name +
+          `<span id='times${key}'> gånger: ${value.amount} </span>` +
+          `<span class="minus" id='minus${key}'>-</span> <span class="plus" id='plus${key}'>+</span> </div>`
+        );
+      }
     });
+
+
     //styles the fysical cart.
     $.each(cartObject, function (key, value) {
       $("li").attr("class", "list-group-item");
@@ -50,8 +54,11 @@ $(document).ready(function () {
     if (cartIsUpToDate === false) {
       //Counts all of the items ant the total price.
       $.each(cartObject, function (key, value) {
-        items += value.amount;
-        price += value.price;
+        if (value.amount > 0) {
+          items += value.amount;
+          price += value.price * value.amount;
+        }
+
       });
       cartIsUpToDate = true;
       //sets the items inside of the cart
@@ -92,7 +99,7 @@ $(document).ready(function () {
               $("#price").html(price + " kr");
             } else {
               cartObject[key].amount += 1;
-              cartObject[key].price += value.price;
+              cartObject[key].price = value.price;
               console.log(items);
               items++;
               price += value.price;
@@ -138,6 +145,11 @@ $(document).ready(function () {
               cartValue.amount++;
               document.getElementById("times" + cartKey).innerHTML =
                 " gånger: " + cartObject[cartKey].amount;
+              price += cartValue.price;
+              console.log("price: " + cartValue.price);
+              items++;
+              $("#items").html(items);
+              $("#price").html(price + " kr");
             }
 
             localStorage.setItem("cartObject", JSON.stringify(cartObject));
@@ -157,8 +169,13 @@ $(document).ready(function () {
                 cartValue.amount--;
                 document.getElementById("times" + cartKey).innerHTML =
                   " gånger: " + cartObject[cartKey].amount;
+                price -= cartValue.price;
+                items--;
+                $("#items").html(items);
+                $("#price").html(price + " kr");
               }
             }
+
 
             localStorage.setItem("cartObject", JSON.stringify(cartObject));
           });
