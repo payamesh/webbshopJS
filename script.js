@@ -194,7 +194,7 @@ $(document).ready(function () {
             `;
         //makes the cart visable
         if (cartIsClicked === true) {
-          setTimeout(function () {
+          $(document).ready(function () {
             document.getElementById("cart-content").style.display = "block";
 
             for (let i = 2; i < visableCart.length; i++) {
@@ -229,6 +229,6 @@ $(document).ready(function () {
         }, 500);
       }
     });
-  }, 15);
+  });
 
 });
